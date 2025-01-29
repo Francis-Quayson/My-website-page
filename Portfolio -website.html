@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Professional Portfolio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0073e6;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .toggle-btn {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px 0;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #005bb5;
+        }
+
+        .toggle-content {
+            display: none;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            margin-top: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .dark-mode {
+            background-color: #121212;
+            color: white;
+        }
+
+        .section-container {
+            display: flex;
+            flex-direction: column; /* Change to column layout for vertical stacking */
+            gap: 10px;
+            margin-top: 20px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .section-container section {
+            text-align: center;
+        }
+
+        .back-to-top, .back-to-bottom {
+            position: fixed;
+            bottom: 20px;
+            font-size: 24px;
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .back-to-top {
+            left: 20px;
+        }
+
+        .back-to-bottom {
+            right: 20px;
+        }
+
+        .back-to-top:hover, .back-to-bottom:hover {
+            background-color: #005bb5;
+        }
+
+        /* Contact Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        button[type="submit"] {
+            background-color: #0073e6;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #005bb5;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="dark-mode-toggle">🌙 Toggle Dark Mode</button>
+
+    <header>
+        <h1>Welcome to My Professional Portfolio</h1>
+        <p>Discover my work, skills, and experience</p>
+    </header>
+
+    <div class="section-container">
+        <section id="about">
+            <button class="toggle-btn" onclick="toggleContent('aboutContent')">About Me</button>
+            <div id="aboutContent" class="toggle-content">
+                <p>Hello! I'm a passionate web developer with experience in front-end and back-end technologies.</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <button class="toggle-btn" onclick="toggleContent('skillsContent')">My Skills</button>
+            <div id="skillsContent" class="toggle-content">
+                <canvas id="skillsChart" width="300" height="300"></canvas>
+                <p>Skills and proficiency levels in web development technologies.</p>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <button class="toggle-btn" onclick="toggleContent('portfolioContent')">My Projects</button>
+            <div id="portfolioContent" class="toggle-content">
+                <div class="portfolio-gallery">
+                    <div class="portfolio-item">
+                        <img src="project1.jpg" alt="Project 1">
+                        <h3>Project Title</h3>
+                        <p>A brief description of the project goes here.</p>
+                        <a href="https://github.com/yourproject" target="_blank">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <button class="toggle-btn" onclick="toggleContent('contactContent')">Contact Me</button>
+            <div id="contactContent" class="toggle-content">
+                <form action="#" method="POST">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <button class="back-to-top">↑</button>
+    <button class="back-to-bottom">↓</button>
+
+    <script>
+        // Dark Mode Toggle
+        document.querySelector('.dark-mode-toggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+
+        // Back to Top Button
+        document.querySelector('.back-to-top').addEventListener("click", function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Back to Bottom Button
+        document.querySelector('.back-to-bottom').addEventListener("click", function() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+
+        // Toggle Content Visibility
+        function toggleContent(id) {
+            var content = document.getElementById(id);
+            if (content) {
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    console.log(id + " is now visible");
+                    if (id === 'skillsContent') {
+                        renderSkillsChart();  // Render chart only when section is shown
+                    }
+                } else {
+                    content.style.display = "none";
+                    console.log(id + " is now hidden");
+                }
+            } else {
+                console.log("No element found with id: " + id);
+            }
+        }
+
+        // Render Chart.js Pie Chart for Skills
+        function renderSkillsChart() {
+            var ctx = document.getElementById('skillsChart').getContext('2d');
+            var skillsChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js'],
+                    datasets: [{
+                        label: 'Skills Proficiency',
+                        data: [90, 80, 70, 75, 65],
+
+                        backgroundColor: ['#ff5733', '#33b5ff', '#ffcc00', '#7bff33', '#ff33b5'],
+                        hoverOffset: 4
+                    }]
+                }
+            });
+        }
+    </script>
+</body>
+</html>
